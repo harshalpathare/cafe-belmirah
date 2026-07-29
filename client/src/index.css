@@ -1,0 +1,571 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =====================================================
+   CAFÉ BELMIRAH — Global Styles
+   ===================================================== */
+
+:root {
+  --color-dark: #FFFFFF;
+  --color-dark-50: #FAFAFA;
+  --color-dark-100: #F5F5F5;
+  --color-gold: #D4AF37;
+  --color-gold-light: #F3E5AB;
+  --color-gold-dark: #AA8529;
+  --color-cream: #111111;
+  --color-cream-muted: #555555;
+  --color-forest: #2D5016;
+  --color-wood: #8B5E3C;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Inter', sans-serif;
+  --font-accent: 'Playfair Display', Georgia, serif;
+
+  --transition-luxury: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* =====================================================
+   RESET & BASE
+   ===================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-dark);
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: rgba(201, 168, 76, 0.3);
+  color: var(--color-cream);
+}
+
+/* =====================================================
+   SCROLLBAR
+   ===================================================== */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-light);
+}
+
+/* =====================================================
+   TYPOGRAPHY
+   ===================================================== */
+.font-display { font-family: var(--font-display); }
+.font-accent  { font-family: var(--font-accent); }
+.font-body    { font-family: var(--font-body); }
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #C9A84C 0%, #E8C97A 50%, #A07830 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-shimmer {
+  background: linear-gradient(90deg, #C9A84C 0%, #E8C97A 25%, #C9A84C 50%, #E8C97A 75%, #C9A84C 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* =====================================================
+   GLASSMORPHISM
+   ===================================================== */
+.glass {
+  background: rgba(17, 17, 17, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(17, 17, 17, 0.08);
+}
+
+.glass-gold {
+  background: rgba(201, 168, 76, 0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+}
+
+.glass-dark {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* =====================================================
+   BUTTONS
+   ===================================================== */
+.btn-gold {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2.5rem;
+  background: linear-gradient(135deg, #C9A84C, #E8C97A, #A07830);
+  background-size: 200% auto;
+  background-position: left center;
+  color: #0A0A0A;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s var(--transition-luxury);
+}
+
+.btn-gold:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(201, 168, 76, 0.4);
+}
+
+.btn-outline-gold {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2.5rem;
+  background: transparent;
+  color: var(--color-gold);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid rgba(201, 168, 76, 0.5);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s var(--transition-luxury);
+}
+
+.btn-outline-gold:hover {
+  background: rgba(201, 168, 76, 0.1);
+  border-color: var(--color-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.2);
+}
+
+/* =====================================================
+   SECTION STYLES
+   ===================================================== */
+.section-padding {
+  padding: 6rem 0;
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding: 10rem 0;
+  }
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.section-label::before,
+.section-label::after {
+  content: '';
+  width: 2rem;
+  height: 1px;
+  background: var(--color-gold);
+  opacity: 0.5;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--color-cream);
+}
+
+/* =====================================================
+   GOLD DIVIDER
+   ===================================================== */
+.gold-divider {
+  width: 5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  margin: 1.5rem auto;
+}
+
+.gold-divider-left {
+  width: 5rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-gold), transparent);
+  margin: 1.5rem 0;
+}
+
+/* =====================================================
+   CARD STYLES
+   ===================================================== */
+.luxury-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.5s var(--transition-luxury);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.luxury-card:hover {
+  border-color: rgba(201, 168, 76, 0.6);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 20px 40px rgba(201, 168, 76, 0.15), 0 15px 30px rgba(0, 0, 0, 0.06);
+  transform: translateY(-8px);
+}
+
+/* =====================================================
+   BADGE STYLES
+   ===================================================== */
+.badge-veg {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.6rem;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #15803d;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+
+.badge-nonveg {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.6rem;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #b91c1c;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+
+.badge-bestseller {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.6rem;
+  background: rgba(201, 168, 76, 0.1);
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  color: var(--color-gold-dark);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+
+/* =====================================================
+   ANIMATIONS
+   ===================================================== */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-20px); }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  25% { opacity: 0.85; }
+  50% { opacity: 0.95; }
+  75% { opacity: 0.8; }
+}
+
+@keyframes firefly {
+  0%, 100% { opacity: 0; transform: translateY(0) translateX(0); }
+  25%  { opacity: 1; }
+  50%  { opacity: 0.8; transform: translateY(-30px) translateX(20px); }
+  75%  { opacity: 1; }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes steam {
+  0%   { opacity: 0; transform: translateY(0) scaleX(1); }
+  30%  { opacity: 0.6; }
+  70%  { opacity: 0.3; transform: translateY(-40px) scaleX(1.5); }
+  100% { opacity: 0; transform: translateY(-60px) scaleX(2); }
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50%       { opacity: 1;   transform: scale(1.2); }
+}
+
+.animate-float       { animation: float 6s ease-in-out infinite; }
+.animate-float-slow  { animation: float 10s ease-in-out infinite; }
+.animate-flicker     { animation: flicker 3s ease-in-out infinite; }
+.animate-rise        { animation: rise 1s ease-out forwards; }
+.animate-steam       { animation: steam 3s ease-out infinite; }
+.animate-star        { animation: starTwinkle 2s ease-in-out infinite; }
+
+/* =====================================================
+   CURSOR
+   ===================================================== */
+.custom-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+/* =====================================================
+   PARALLAX CONTAINER
+   ===================================================== */
+.parallax-container {
+  overflow: hidden;
+}
+
+/* =====================================================
+   INPUT STYLES
+   ===================================================== */
+.luxury-input {
+  width: 100%;
+  background: rgba(17, 17, 17, 0.04);
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.luxury-input:focus {
+  border-color: rgba(201, 168, 76, 0.8);
+  background: rgba(201, 168, 76, 0.05);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+}
+
+.luxury-input::placeholder {
+  color: rgba(17, 17, 17, 0.4);
+}
+
+.luxury-input option {
+  background: var(--color-dark);
+  color: var(--color-cream);
+}
+
+.luxury-input-dark {
+  width: 100%;
+  background: rgba(246, 243, 237, 0.04);
+  border: 1px solid rgba(246, 243, 237, 0.12);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.luxury-input-dark:focus {
+  border-color: rgba(201, 168, 76, 0.8);
+  background: rgba(201, 168, 76, 0.05);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+}
+
+.luxury-input-dark::placeholder {
+  color: rgba(246, 243, 237, 0.4);
+}
+
+/* =====================================================
+   NAV LINK
+   ===================================================== */
+.nav-link {
+  position: relative;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  color: inherit;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-gold);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-gold);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* =====================================================
+   MASONRY GALLERY
+   ===================================================== */
+.masonry-grid {
+  columns: 2;
+  column-gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .masonry-grid {
+    columns: 3;
+    column-gap: 1.25rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .masonry-grid {
+    columns: 4;
+    column-gap: 1.5rem;
+  }
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  position: relative;
+}
+
+@media (min-width: 1280px) {
+  .masonry-item {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* =====================================================
+   STAR FIELD BACKGROUND
+   ===================================================== */
+.starfield {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: starTwinkle var(--duration, 2s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* =====================================================
+   SCROLL PROGRESS
+   ===================================================== */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-gold), var(--color-gold-light));
+  z-index: 9998;
+  transform-origin: left;
+}
+
+/* =====================================================
+   LOADING OVERLAY
+   ===================================================== */
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: var(--color-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* =====================================================
+   RESPONSIVE UTILITIES
+   ===================================================== */
+.container-luxury {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-luxury {
+    padding: 0 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-luxury {
+    padding: 0 5rem;
+  }
+}
