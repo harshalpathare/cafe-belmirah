@@ -114,8 +114,7 @@ export default function RoomDetails() {
             )}
           </Swiper>
           
-          {/* Gradient Overlay at bottom of carousel for smooth transition */}
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark to-transparent z-10 pointer-events-none" />
+          {/* Gradient Overlay removed to prevent blurriness */}
         </div>
 
         {/* Main Content Area */}

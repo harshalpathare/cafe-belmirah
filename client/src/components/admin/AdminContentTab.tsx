@@ -5,7 +5,7 @@ import { fetchGallery, fetchExperiences, fetchHeroMedia, fetchStory, updateStory
 
 export default function AdminContentTab() {
   const [activeContentTab, setActiveContentTab] = useState<'story' | 'testimonials' | 'gallery' | 'experiences' | 'heromedia' | 'globaltext'>('story');
-  
+
   const [testimonials, setTestimonials] = useState<any[]>([]);
   const [gallery, setGallery] = useState<any[]>([]);
   const [experiences, setExperiences] = useState<any[]>([]);
@@ -108,8 +108,8 @@ export default function AdminContentTab() {
       toast.success('Image added to gallery');
       setNewGallery({ title: '', category: '' });
       setImageFile(null);
-    } catch (e: any) { 
-      toast.error('Failed to add image: ' + (e.response?.data?.message || e.message)); 
+    } catch (e: any) {
+      toast.error('Failed to add image: ' + (e.response?.data?.message || e.message));
       console.error(e);
     }
   };
@@ -133,11 +133,11 @@ export default function AdminContentTab() {
           imageUrls.push(uploadRes.url);
         }
       }
-      
-      const res = await createExperience({ 
-        ...newExperience, 
+
+      const res = await createExperience({
+        ...newExperience,
         image: imageUrls.length > 0 ? imageUrls[0] : null,
-        images: imageUrls 
+        images: imageUrls
       });
       setExperiences([...experiences, res.item]);
       toast.success('Experience added');
@@ -164,7 +164,7 @@ export default function AdminContentTab() {
         finalUrl = uploadRes.url;
       }
       if (!finalUrl) return toast.error('Please provide a URL or upload a file');
-      
+
       const res = await createHeroMedia({ type: newHeroMedia.type, url: finalUrl });
       setHeroMediaItems([...heroMediaItems, res.item]);
       toast.success('Hero media added');
@@ -194,23 +194,23 @@ export default function AdminContentTab() {
         <button onClick={() => setActiveContentTab('heromedia')} className={`px-4 py-2 rounded text-xs uppercase tracking-wider transition-colors ${activeContentTab === 'heromedia' ? 'bg-gold text-dark font-bold' : 'bg-black/5 text-cream/50 hover:bg-black/10'}`}>Hero Media</button>
         <button onClick={() => setActiveContentTab('globaltext')} className={`px-4 py-2 rounded text-xs uppercase tracking-wider transition-colors ${activeContentTab === 'globaltext' ? 'bg-gold text-dark font-bold' : 'bg-black/5 text-cream/50 hover:bg-black/10'}`}>Global Text</button>
       </div>
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="lg:col-span-1">
           <div className="glass p-6 sticky top-32">
             <h3 className="font-display text-2xl text-gold mb-6">
               {activeContentTab === 'story' ? 'Edit Story Content' : activeContentTab === 'testimonials' ? 'Add Testimonial' : activeContentTab === 'gallery' ? 'Upload Image' : activeContentTab === 'experiences' ? 'Add Experience' : activeContentTab === 'heromedia' ? 'Add Hero Media' : 'Edit Global Text'}
             </h3>
-            
+
             {activeContentTab === 'story' && (
               <form onSubmit={handleStorySubmit} className="space-y-4">
-                <input required placeholder="Title" value={storyData.title || ''} onChange={e => setStoryData({...storyData, title: e.target.value})} className="luxury-input w-full" />
-                <input required placeholder="Subtitle" value={storyData.subtitle || ''} onChange={e => setStoryData({...storyData, subtitle: e.target.value})} className="luxury-input w-full" />
-                <textarea required placeholder="Paragraph 1" value={storyData.paragraph1 || ''} onChange={e => setStoryData({...storyData, paragraph1: e.target.value})} className="luxury-input w-full min-h-[120px]" />
-                <textarea required placeholder="Paragraph 2" value={storyData.paragraph2 || ''} onChange={e => setStoryData({...storyData, paragraph2: e.target.value})} className="luxury-input w-full min-h-[120px]" />
+                <input required placeholder="Title" value={storyData.title || ''} onChange={e => setStoryData({ ...storyData, title: e.target.value })} className="luxury-input w-full" />
+                <input required placeholder="Subtitle" value={storyData.subtitle || ''} onChange={e => setStoryData({ ...storyData, subtitle: e.target.value })} className="luxury-input w-full" />
+                <textarea required placeholder="Paragraph 1" value={storyData.paragraph1 || ''} onChange={e => setStoryData({ ...storyData, paragraph1: e.target.value })} className="luxury-input w-full min-h-[120px]" />
+                <textarea required placeholder="Paragraph 2" value={storyData.paragraph2 || ''} onChange={e => setStoryData({ ...storyData, paragraph2: e.target.value })} className="luxury-input w-full min-h-[120px]" />
                 <div className="space-y-1">
                   <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Image Focal Point</label>
-                  <select value={storyData.imagePosition || 'center'} onChange={e => setStoryData({...storyData, imagePosition: e.target.value})} className="luxury-input w-full">
+                  <select value={storyData.imagePosition || 'center'} onChange={e => setStoryData({ ...storyData, imagePosition: e.target.value })} className="luxury-input w-full">
                     <option value="center">Center (Default)</option>
                     <option value="top">Top</option>
                     <option value="bottom">Bottom</option>
@@ -220,7 +220,7 @@ export default function AdminContentTab() {
                   <p className="text-xs text-cream/50 mt-1">Adjust this if the subject of your image is cut off on the main page.</p>
                 </div>
 
-                <input placeholder="Image URL (optional if uploading)" value={storyData.imageUrl || ''} onChange={e => setStoryData({...storyData, imageUrl: e.target.value})} className="luxury-input w-full" />
+                <input placeholder="Image URL (optional if uploading)" value={storyData.imageUrl || ''} onChange={e => setStoryData({ ...storyData, imageUrl: e.target.value })} className="luxury-input w-full" />
                 <div className="text-center text-xs text-cream/40 -my-2">- OR -</div>
                 <input type="file" onChange={e => setImageFile(e.target.files ? e.target.files[0] : null)} className="w-full text-sm text-cream/70 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gold/10 file:text-gold hover:file:bg-gold/20" />
                 <button type="submit" className="btn-gold w-full py-3">Save Story</button>
@@ -229,18 +229,18 @@ export default function AdminContentTab() {
 
             {activeContentTab === 'testimonials' && (
               <form onSubmit={handleTestimonialSubmit} className="space-y-4">
-                <input required placeholder="Name" value={newTestimonial.name} onChange={e => setNewTestimonial({...newTestimonial, name: e.target.value})} className="luxury-input w-full" />
-                <input placeholder="Role (e.g. Guest from Paris)" value={newTestimonial.role} onChange={e => setNewTestimonial({...newTestimonial, role: e.target.value})} className="luxury-input w-full" />
-                <textarea required placeholder="Review content..." value={newTestimonial.content} onChange={e => setNewTestimonial({...newTestimonial, content: e.target.value})} className="luxury-input w-full min-h-[80px]" />
-                <input type="number" min="1" max="5" placeholder="Rating (1-5)" value={newTestimonial.rating} onChange={e => setNewTestimonial({...newTestimonial, rating: e.target.value})} className="luxury-input w-full" />
+                <input required placeholder="Name" value={newTestimonial.name} onChange={e => setNewTestimonial({ ...newTestimonial, name: e.target.value })} className="luxury-input w-full" />
+                <input placeholder="Role (e.g. Guest from Paris)" value={newTestimonial.role} onChange={e => setNewTestimonial({ ...newTestimonial, role: e.target.value })} className="luxury-input w-full" />
+                <textarea required placeholder="Review content..." value={newTestimonial.content} onChange={e => setNewTestimonial({ ...newTestimonial, content: e.target.value })} className="luxury-input w-full min-h-[80px]" />
+                <input type="number" min="1" max="5" placeholder="Rating (1-5)" value={newTestimonial.rating} onChange={e => setNewTestimonial({ ...newTestimonial, rating: e.target.value })} className="luxury-input w-full" />
                 <button type="submit" className="btn-gold w-full py-3">Add Testimonial</button>
               </form>
             )}
 
             {activeContentTab === 'gallery' && (
               <form onSubmit={handleGallerySubmit} className="space-y-4">
-                <input placeholder="Title (optional)" value={newGallery.title} onChange={e => setNewGallery({...newGallery, title: e.target.value})} className="luxury-input w-full" />
-                <input required placeholder="Category (e.g. Glamping, Nature, Stay...)" value={newGallery.category} onChange={e => setNewGallery({...newGallery, category: e.target.value})} className="luxury-input w-full" />
+                <input placeholder="Title (optional)" value={newGallery.title} onChange={e => setNewGallery({ ...newGallery, title: e.target.value })} className="luxury-input w-full" />
+                <input required placeholder="Category (e.g. Glamping, Nature, Stay...)" value={newGallery.category} onChange={e => setNewGallery({ ...newGallery, category: e.target.value })} className="luxury-input w-full" />
                 <input type="file" onChange={e => setImageFile(e.target.files ? e.target.files[0] : null)} className="w-full text-sm text-cream/70 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gold/10 file:text-gold hover:file:bg-gold/20" />
                 <button type="submit" className="btn-gold w-full py-3">Upload Image</button>
               </form>
@@ -248,9 +248,9 @@ export default function AdminContentTab() {
 
             {activeContentTab === 'experiences' && (
               <form onSubmit={handleExperienceSubmit} className="space-y-4">
-                <input required placeholder="Title" value={newExperience.title} onChange={e => setNewExperience({...newExperience, title: e.target.value})} className="luxury-input w-full" />
-                <textarea required placeholder="Description" value={newExperience.description} onChange={e => setNewExperience({...newExperience, description: e.target.value})} className="luxury-input w-full min-h-[80px]" />
-                <input placeholder="Icon (Emoji)" value={newExperience.icon} onChange={e => setNewExperience({...newExperience, icon: e.target.value})} className="luxury-input w-full" />
+                <input required placeholder="Title" value={newExperience.title} onChange={e => setNewExperience({ ...newExperience, title: e.target.value })} className="luxury-input w-full" />
+                <textarea required placeholder="Description" value={newExperience.description} onChange={e => setNewExperience({ ...newExperience, description: e.target.value })} className="luxury-input w-full min-h-[80px]" />
+                <input placeholder="Icon (Emoji)" value={newExperience.icon} onChange={e => setNewExperience({ ...newExperience, icon: e.target.value })} className="luxury-input w-full" />
                 <div className="text-center text-xs text-cream/40 -my-2">- OR -</div>
                 <input type="file" multiple onChange={e => {
                   if (e.target.files) {
@@ -266,11 +266,11 @@ export default function AdminContentTab() {
 
             {activeContentTab === 'heromedia' && (
               <form onSubmit={handleHeroMediaSubmit} className="space-y-4">
-                <select value={newHeroMedia.type} onChange={e => setNewHeroMedia({...newHeroMedia, type: e.target.value})} className="luxury-input w-full">
+                <select value={newHeroMedia.type} onChange={e => setNewHeroMedia({ ...newHeroMedia, type: e.target.value })} className="luxury-input w-full">
                   <option value="image">Image</option>
                   <option value="video">Video</option>
                 </select>
-                <input placeholder="Direct URL (optional if uploading)" value={newHeroMedia.url} onChange={e => setNewHeroMedia({...newHeroMedia, url: e.target.value})} className="luxury-input w-full" />
+                <input placeholder="Direct URL (optional if uploading)" value={newHeroMedia.url} onChange={e => setNewHeroMedia({ ...newHeroMedia, url: e.target.value })} className="luxury-input w-full" />
                 <div className="text-center text-xs text-cream/40 -my-2">- OR -</div>
                 <input type="file" onChange={e => setImageFile(e.target.files ? e.target.files[0] : null)} className="w-full text-sm text-cream/70 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gold/10 file:text-gold hover:file:bg-gold/20" />
                 <button type="submit" className="btn-gold w-full py-3">Add Hero Media</button>
@@ -281,119 +281,119 @@ export default function AdminContentTab() {
               <form onSubmit={handleGlobalTextSubmit} className="space-y-4">
                 <div className="space-y-1">
                   <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Hero Headline</label>
-                  <textarea value={globalText.hero_headline || ''} onChange={e => setGlobalText({...globalText, hero_headline: e.target.value})} className="luxury-input w-full min-h-[80px]" />
+                  <textarea value={globalText.hero_headline || ''} onChange={e => setGlobalText({ ...globalText, hero_headline: e.target.value })} className="luxury-input w-full min-h-[80px]" />
                 </div>
                 <div className="space-y-1">
                   <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Hero Subheadline</label>
-                  <input value={globalText.hero_subheadline || ''} onChange={e => setGlobalText({...globalText, hero_subheadline: e.target.value})} className="luxury-input w-full" />
+                  <input value={globalText.hero_subheadline || ''} onChange={e => setGlobalText({ ...globalText, hero_subheadline: e.target.value })} className="luxury-input w-full" />
                 </div>
                 <div className="space-y-1">
                   <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Cafe Intro Title</label>
-                  <input value={globalText.cafe_intro_title || ''} onChange={e => setGlobalText({...globalText, cafe_intro_title: e.target.value})} className="luxury-input w-full" />
+                  <input value={globalText.cafe_intro_title || ''} onChange={e => setGlobalText({ ...globalText, cafe_intro_title: e.target.value })} className="luxury-input w-full" />
                 </div>
                 <div className="space-y-1">
                   <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Cafe Intro Text</label>
-                  <textarea value={globalText.cafe_intro_text || ''} onChange={e => setGlobalText({...globalText, cafe_intro_text: e.target.value})} className="luxury-input w-full min-h-[80px]" />
+                  <textarea value={globalText.cafe_intro_text || ''} onChange={e => setGlobalText({ ...globalText, cafe_intro_text: e.target.value })} className="luxury-input w-full min-h-[80px]" />
                 </div>
                 <div className="space-y-1">
                   <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Rooms Intro Title</label>
-                  <input value={globalText.rooms_intro_title || ''} onChange={e => setGlobalText({...globalText, rooms_intro_title: e.target.value})} className="luxury-input w-full" />
+                  <input value={globalText.rooms_intro_title || ''} onChange={e => setGlobalText({ ...globalText, rooms_intro_title: e.target.value })} className="luxury-input w-full" />
                 </div>
                 <div className="space-y-1">
                   <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Rooms Intro Text</label>
-                  <textarea value={globalText.rooms_intro_text || ''} onChange={e => setGlobalText({...globalText, rooms_intro_text: e.target.value})} className="luxury-input w-full min-h-[80px]" />
+                  <textarea value={globalText.rooms_intro_text || ''} onChange={e => setGlobalText({ ...globalText, rooms_intro_text: e.target.value })} className="luxury-input w-full min-h-[80px]" />
                 </div>
 
                 <h4 className="font-display text-xl text-gold mt-8 mb-4">Footer Section</h4>
-                
+
                 <div className="space-y-1">
                   <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Footer Brand Description</label>
-                  <textarea value={globalText.footer_brand_text || ''} onChange={e => setGlobalText({...globalText, footer_brand_text: e.target.value})} className="luxury-input w-full min-h-[80px]" />
+                  <textarea value={globalText.footer_brand_text || ''} onChange={e => setGlobalText({ ...globalText, footer_brand_text: e.target.value })} className="luxury-input w-full min-h-[80px]" />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                   <div>
                     <label className="block text-xs uppercase tracking-wider text-cream/50 mb-1">Links: Stay (comma-separated)</label>
-                    <input value={globalText.footer_links_stay || ''} onChange={e => setGlobalText({...globalText, footer_links_stay: e.target.value})} className="luxury-input w-full" />
+                    <input value={globalText.footer_links_stay || ''} onChange={e => setGlobalText({ ...globalText, footer_links_stay: e.target.value })} className="luxury-input w-full" />
                   </div>
                   <div>
                     <label className="block text-xs uppercase tracking-wider text-cream/50 mb-1">Links: Dining (comma-separated)</label>
-                    <input value={globalText.footer_links_dining || ''} onChange={e => setGlobalText({...globalText, footer_links_dining: e.target.value})} className="luxury-input w-full" />
+                    <input value={globalText.footer_links_dining || ''} onChange={e => setGlobalText({ ...globalText, footer_links_dining: e.target.value })} className="luxury-input w-full" />
                   </div>
                   <div>
                     <label className="block text-xs uppercase tracking-wider text-cream/50 mb-1">Links: Experiences (comma-separated)</label>
-                    <input value={globalText.footer_links_experiences || ''} onChange={e => setGlobalText({...globalText, footer_links_experiences: e.target.value})} className="luxury-input w-full" />
+                    <input value={globalText.footer_links_experiences || ''} onChange={e => setGlobalText({ ...globalText, footer_links_experiences: e.target.value })} className="luxury-input w-full" />
                   </div>
                   <div>
                     <label className="block text-xs uppercase tracking-wider text-cream/50 mb-1">Links: Company (comma-separated)</label>
-                    <input value={globalText.footer_links_company || ''} onChange={e => setGlobalText({...globalText, footer_links_company: e.target.value})} className="luxury-input w-full" />
+                    <input value={globalText.footer_links_company || ''} onChange={e => setGlobalText({ ...globalText, footer_links_company: e.target.value })} className="luxury-input w-full" />
                   </div>
                   <div>
                     <label className="block text-xs uppercase tracking-wider text-cream/50 mb-1">Newsletter Title</label>
-                    <input value={globalText.footer_newsletter_title || ''} onChange={e => setGlobalText({...globalText, footer_newsletter_title: e.target.value})} className="luxury-input w-full" />
+                    <input value={globalText.footer_newsletter_title || ''} onChange={e => setGlobalText({ ...globalText, footer_newsletter_title: e.target.value })} className="luxury-input w-full" />
                   </div>
                   <div>
                     <label className="block text-xs uppercase tracking-wider text-cream/50 mb-1">Newsletter Subtext</label>
-                    <input value={globalText.footer_newsletter_text || ''} onChange={e => setGlobalText({...globalText, footer_newsletter_text: e.target.value})} className="luxury-input w-full" />
+                    <input value={globalText.footer_newsletter_text || ''} onChange={e => setGlobalText({ ...globalText, footer_newsletter_text: e.target.value })} className="luxury-input w-full" />
                   </div>
                 </div>
 
                 <div className="space-y-1 mt-4">
                   <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Copyright Text</label>
-                  <input value={globalText.footer_copyright || ''} onChange={e => setGlobalText({...globalText, footer_copyright: e.target.value})} className="luxury-input w-full" />
+                  <input value={globalText.footer_copyright || ''} onChange={e => setGlobalText({ ...globalText, footer_copyright: e.target.value })} className="luxury-input w-full" />
                 </div>
 
                 <h4 className="font-display text-xl text-gold mt-8 mb-4">Contact Info</h4>
                 <div className="space-y-1">
                   <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Contact Address</label>
-                  <input value={globalText.contact_address || ''} onChange={e => setGlobalText({...globalText, contact_address: e.target.value})} className="luxury-input w-full" />
+                  <input value={globalText.contact_address || ''} onChange={e => setGlobalText({ ...globalText, contact_address: e.target.value })} className="luxury-input w-full" />
                 </div>
                 <div className="space-y-1">
                   <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Contact Phone</label>
-                  <input value={globalText.contact_phone || ''} onChange={e => setGlobalText({...globalText, contact_phone: e.target.value})} className="luxury-input w-full" />
+                  <input value={globalText.contact_phone || ''} onChange={e => setGlobalText({ ...globalText, contact_phone: e.target.value })} className="luxury-input w-full" />
                 </div>
-                
+
                 <h4 className="font-display text-xl text-gold mt-8 mb-4">Opening Hours</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs uppercase tracking-wider text-cream/50 mb-1">Café & Restaurant (Time)</label>
-                    <input value={globalText.hours_cafe_time || ''} onChange={e => setGlobalText({...globalText, hours_cafe_time: e.target.value})} placeholder="e.g. 7:00 AM – 10:30 PM" className="luxury-input w-full" />
+                    <input value={globalText.hours_cafe_time || ''} onChange={e => setGlobalText({ ...globalText, hours_cafe_time: e.target.value })} placeholder="e.g. 7:00 AM – 10:30 PM" className="luxury-input w-full" />
                   </div>
                   <div>
                     <label className="block text-xs uppercase tracking-wider text-cream/50 mb-1">Café & Restaurant (Days)</label>
-                    <input value={globalText.hours_cafe_days || ''} onChange={e => setGlobalText({...globalText, hours_cafe_days: e.target.value})} placeholder="e.g. All Days" className="luxury-input w-full" />
+                    <input value={globalText.hours_cafe_days || ''} onChange={e => setGlobalText({ ...globalText, hours_cafe_days: e.target.value })} placeholder="e.g. All Days" className="luxury-input w-full" />
                   </div>
-                  
+
                   <div>
                     <label className="block text-xs uppercase tracking-wider text-cream/50 mb-1">Check-In (Time)</label>
-                    <input value={globalText.hours_checkin_time || ''} onChange={e => setGlobalText({...globalText, hours_checkin_time: e.target.value})} placeholder="e.g. 12:00 PM – 9:00 PM" className="luxury-input w-full" />
+                    <input value={globalText.hours_checkin_time || ''} onChange={e => setGlobalText({ ...globalText, hours_checkin_time: e.target.value })} placeholder="e.g. 12:00 PM – 9:00 PM" className="luxury-input w-full" />
                   </div>
                   <div>
                     <label className="block text-xs uppercase tracking-wider text-cream/50 mb-1">Check-In (Days)</label>
-                    <input value={globalText.hours_checkin_days || ''} onChange={e => setGlobalText({...globalText, hours_checkin_days: e.target.value})} placeholder="e.g. All Days" className="luxury-input w-full" />
+                    <input value={globalText.hours_checkin_days || ''} onChange={e => setGlobalText({ ...globalText, hours_checkin_days: e.target.value })} placeholder="e.g. All Days" className="luxury-input w-full" />
                   </div>
-                  
+
                   <div>
                     <label className="block text-xs uppercase tracking-wider text-cream/50 mb-1">Check-Out (Time)</label>
-                    <input value={globalText.hours_checkout_time || ''} onChange={e => setGlobalText({...globalText, hours_checkout_time: e.target.value})} placeholder="e.g. By 11:00 AM" className="luxury-input w-full" />
+                    <input value={globalText.hours_checkout_time || ''} onChange={e => setGlobalText({ ...globalText, hours_checkout_time: e.target.value })} placeholder="e.g. By 11:00 AM" className="luxury-input w-full" />
                   </div>
                   <div>
                     <label className="block text-xs uppercase tracking-wider text-cream/50 mb-1">Check-Out (Days)</label>
-                    <input value={globalText.hours_checkout_days || ''} onChange={e => setGlobalText({...globalText, hours_checkout_days: e.target.value})} placeholder="e.g. All Days" className="luxury-input w-full" />
+                    <input value={globalText.hours_checkout_days || ''} onChange={e => setGlobalText({ ...globalText, hours_checkout_days: e.target.value })} placeholder="e.g. All Days" className="luxury-input w-full" />
                   </div>
                 </div>
 
                 <div className="space-y-1">
                   <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Contact Email</label>
-                  <input value={globalText.contact_email || ''} onChange={e => setGlobalText({...globalText, contact_email: e.target.value})} className="luxury-input w-full" />
+                  <input value={globalText.contact_email || ''} onChange={e => setGlobalText({ ...globalText, contact_email: e.target.value })} className="luxury-input w-full" />
                 </div>
 
                 <div className="space-y-1">
                   <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Map Embed URL</label>
-                  <input value={globalText.contact_map_url || ''} onChange={e => setGlobalText({...globalText, contact_map_url: e.target.value})} placeholder="e.g. https://www.google.com/maps/embed?pb=..." className="luxury-input w-full" />
+                  <input value={globalText.contact_map_url || ''} onChange={e => setGlobalText({ ...globalText, contact_map_url: e.target.value })} placeholder="e.g. https://www.google.com/maps/embed?pb=..." className="luxury-input w-full" />
                   <p className="text-[10px] text-cream/50 mt-1">Paste the 'src' link from a Google Maps embed iframe.</p>
                 </div>
-                
+
                 <button type="submit" className="btn-gold w-full py-3 mt-4">Save Global Text</button>
               </form>
             )}
@@ -410,11 +410,11 @@ export default function AdminContentTab() {
                 <p className="text-cream/70 mb-6 whitespace-pre-wrap">{storyData.paragraph2}</p>
                 {storyData.imageUrl && (
                   <div className="relative w-full mx-auto rounded-xl overflow-hidden shadow-lg mt-6 bg-black/10">
-                    <img 
-                      src={storyData.imageUrl} 
-                      alt="Story preview" 
-                      className="w-full h-auto max-h-[400px] object-cover" 
-                      style={{ objectPosition: storyData.imagePosition || 'center' }} 
+                    <img
+                      src={storyData.imageUrl}
+                      alt="Story preview"
+                      className="w-full h-auto max-h-[400px] object-cover"
+                      style={{ objectPosition: storyData.imagePosition || 'center' }}
                     />
                   </div>
                 )}

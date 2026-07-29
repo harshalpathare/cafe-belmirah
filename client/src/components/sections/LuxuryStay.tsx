@@ -75,7 +75,6 @@ function RoomCard({ room, index }: { room: any; index: number }) {
             loading="lazy"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/30 to-transparent pointer-events-none z-10" />
 
         {/* Price badge */}
         <div className="absolute top-4 right-4 glass-gold px-3 py-2 text-right">
