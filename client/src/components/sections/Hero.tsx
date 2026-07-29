@@ -187,7 +187,7 @@ export default function Hero() {
       <Particles count={20} type="fireflies" />
 
       {/* Content */}
-      <div className="relative z-10 text-center container-luxury flex-1 flex flex-col justify-center pt-24 pb-12">
+      <div className="relative z-10 text-center container-luxury flex-1 flex flex-col justify-center pt-40 lg:pt-48 pb-12">
 
         {/* Main Headline */}
         <div ref={headlineRef} className="font-display text-6xl md:text-8xl lg:text-9xl font-light text-white leading-none mb-6 perspective-1000">
