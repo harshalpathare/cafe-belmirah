@@ -7,6 +7,7 @@
    ===================================================== */
 
 :root {
+  color-scheme: only light;
   --color-dark: #FFFFFF;
   --color-dark-50: #FAFAFA;
   --color-dark-100: #F5F5F5;
