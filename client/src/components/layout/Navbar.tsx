@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
+import { useSiteContent } from '../../context/SiteContentContext';
 
 const navLinks = [
   { href: '#stay', label: 'Stay' },
@@ -14,7 +15,7 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const { content } = useSiteContent();
   const location = useLocation();
 
   useEffect(() => {
@@ -52,13 +53,23 @@ export default function Navbar() {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="flex flex-col items-start group"
           >
-            <span className={`font-display text-2xl font-light tracking-widest leading-none group-hover:text-gradient-gold transition-all duration-300 ${scrolled ? 'text-cream' : 'text-white'}`}>
-              CAFÉ
-            </span>
-            <span className="font-display text-xl font-light text-gradient-gold tracking-[0.3em] leading-none -mt-1">
-              BELMIRAH
-            </span>
-            <div className="w-full h-px bg-gradient-to-r from-gold/60 to-transparent mt-1" />
+            {content.site_logo ? (
+              <img
+                src={content.site_logo}
+                alt="Café Belmirah"
+                className="h-10 w-auto object-contain"
+              />
+            ) : (
+              <>
+                <span className={`font-display text-2xl font-light tracking-widest leading-none group-hover:text-gradient-gold transition-all duration-300 ${scrolled ? 'text-cream' : 'text-white'}`}>
+                  CAFÉ
+                </span>
+                <span className="font-display text-xl font-light text-gradient-gold tracking-[0.3em] leading-none -mt-1">
+                  BELMIRAH
+                </span>
+                <div className="w-full h-px bg-gradient-to-r from-gold/60 to-transparent mt-1" />
+              </>
+            )}
           </button>
           {/* Desktop Navigation */}
           <nav className={`hidden lg:flex items-center gap-8 ${scrolled ? 'text-cream/70' : 'text-white/80'}`}>

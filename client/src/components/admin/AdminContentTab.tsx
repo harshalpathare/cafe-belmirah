@@ -280,6 +280,31 @@ export default function AdminContentTab() {
             {activeContentTab === 'globaltext' && (
               <form onSubmit={handleGlobalTextSubmit} className="space-y-4">
                 <div className="space-y-1">
+                  <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Site Logo (Image)</label>
+                  <p className="text-[10px] text-cream/50">Upload a logo image. If set, replaces the text logo in the Navbar.</p>
+                  {globalText.site_logo && (
+                    <div className="mb-2 p-2 glass rounded flex items-center gap-3">
+                      <img src={globalText.site_logo} alt="Current Logo" className="h-10 w-auto object-contain" />
+                      <button type="button" onClick={() => setGlobalText({ ...globalText, site_logo: '' })} className="text-red-400 text-xs uppercase font-bold">Remove</button>
+                    </div>
+                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      try {
+                        const uploadRes = await uploadPhoto(file);
+                        setGlobalText({ ...globalText, site_logo: uploadRes.url });
+                        toast.success('Logo uploaded!');
+                      } catch { toast.error('Logo upload failed'); }
+                    }}
+                    className="w-full text-sm text-cream/70 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gold/10 file:text-gold hover:file:bg-gold/20"
+                  />
+                </div>
+
+                <div className="space-y-1">
                   <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Hero Headline</label>
                   <textarea value={globalText.hero_headline || ''} onChange={e => setGlobalText({ ...globalText, hero_headline: e.target.value })} className="luxury-input w-full min-h-[80px]" />
                 </div>
