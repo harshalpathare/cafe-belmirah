@@ -46,7 +46,7 @@ function RoomCard({ room, index }: { room: any; index: number }) {
       className="luxury-card group overflow-hidden relative"
     >
       {/* Image / Carousel */}
-      <div className="relative h-72 overflow-hidden">
+      <div className="relative aspect-[4/3] overflow-hidden">
         {room.images && room.images.length > 1 ? (
           <Swiper
             modules={[Pagination, Navigation, Autoplay]}
