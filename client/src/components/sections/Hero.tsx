@@ -187,10 +187,10 @@ export default function Hero() {
       <Particles count={20} type="fireflies" />
 
       {/* Content */}
-      <div className="relative z-10 text-center container-luxury flex-1 flex flex-col justify-start md:justify-center pt-32 md:pt-40 lg:pt-48 pb-12">
+      <div className="relative z-10 text-center container-luxury flex-1 flex flex-col justify-start md:justify-center pt-28 md:pt-40 lg:pt-48 pb-12">
 
         {/* Main Headline */}
-        <div ref={headlineRef} className="font-display text-6xl md:text-8xl lg:text-9xl font-light text-white leading-none mb-6 perspective-1000">
+        <div ref={headlineRef} className="font-display text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-light text-white leading-tight md:leading-none mb-6 perspective-1000">
           {renderHeadline()}
         </div>
 
@@ -205,7 +205,7 @@ export default function Hero() {
         {/* Subtext */}
         <p
           ref={subtextRef}
-          className="opacity-0 font-body text-sm md:text-base tracking-[0.2em] text-white/80 uppercase max-w-2xl mx-auto mb-12"
+          className="opacity-0 font-body text-xs sm:text-sm md:text-base tracking-[0.15em] sm:tracking-[0.2em] text-white/80 uppercase max-w-2xl mx-auto mb-10 leading-relaxed"
         >
           {subheadlineText.split('·').map((part, i, arr) => (
             <span key={i}>
@@ -216,21 +216,21 @@ export default function Hero() {
         </p>
 
         {/* CTA Buttons */}
-        <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-[280px] sm:max-w-none mx-auto">
           <button
-            className="btn-gold opacity-0 min-w-[180px]"
+            className="btn-gold opacity-0 w-full sm:w-auto min-w-[180px]"
             onClick={() => scrollTo('#booking')}
           >
             <span className="relative z-10">Book Your Stay</span>
           </button>
           <button
-            className="btn-outline-gold opacity-0 min-w-[180px]"
+            className="btn-outline-gold opacity-0 w-full sm:w-auto min-w-[180px]"
             onClick={() => scrollTo('#booking')}
           >
             Reserve a Table
           </button>
           <button
-            className="btn-outline-gold opacity-0 min-w-[180px]"
+            className="btn-outline-gold opacity-0 w-full sm:w-auto min-w-[180px]"
             onClick={() => scrollTo('#cafe')}
           >
             Explore Menu
