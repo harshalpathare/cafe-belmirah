@@ -316,10 +316,10 @@ export default function AdminContentTab() {
                         type="number"
                         min="20"
                         max="300"
-                        value={globalText.site_logo_px || '56'}
+                        value={globalText.site_logo_px ?? ''}
                         onChange={e => setGlobalText({ ...globalText, site_logo_px: e.target.value })}
                         className="luxury-input w-32"
-                        placeholder="e.g. 80"
+                        placeholder="56"
                       />
                       <span className="text-cream/50 text-sm">px</span>
                       {globalText.site_logo_px && (
