@@ -310,20 +310,23 @@ export default function AdminContentTab() {
                 {/* Logo Size Control */}
                 {globalText.site_logo && (
                   <div className="space-y-1">
-                    <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Logo Size</label>
-                    <select
-                      value={globalText.site_logo_size || 'h-14'}
-                      onChange={e => setGlobalText({ ...globalText, site_logo_size: e.target.value })}
-                      className="luxury-input w-full"
-                    >
-                      <option value="h-8">Small (32px)</option>
-                      <option value="h-10">Medium (40px)</option>
-                      <option value="h-14">Large (56px)</option>
-                      <option value="h-16">Extra Large (64px)</option>
-                      <option value="h-20">Huge (80px)</option>
-                      <option value="h-24">Maximum (96px)</option>
-                    </select>
-                    <p className="text-[10px] text-cream/50">Choose how tall the logo appears in the Navbar.</p>
+                    <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Logo Height (px)</label>
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="number"
+                        min="20"
+                        max="300"
+                        value={globalText.site_logo_px || '56'}
+                        onChange={e => setGlobalText({ ...globalText, site_logo_px: e.target.value })}
+                        className="luxury-input w-32"
+                        placeholder="e.g. 80"
+                      />
+                      <span className="text-cream/50 text-sm">px</span>
+                      {globalText.site_logo_px && (
+                        <img src={globalText.site_logo} alt="preview" style={{ height: `${globalText.site_logo_px}px` }} className="w-auto object-contain border border-gold/20 rounded p-1" />
+                      )}
+                    </div>
+                    <p className="text-[10px] text-cream/50">Type any number. Live preview shown on the right. Click Save Global Text to apply.</p>
                   </div>
                 )}
 
