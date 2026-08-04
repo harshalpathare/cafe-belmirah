@@ -296,8 +296,11 @@ export default function AdminContentTab() {
                       if (!file) return;
                       try {
                         const uploadRes = await uploadPhoto(file);
-                        setGlobalText({ ...globalText, site_logo: uploadRes.url });
-                        toast.success('Logo uploaded!');
+                        const updatedText = { ...globalText, site_logo: uploadRes.url };
+                        setGlobalText(updatedText);
+                        // Auto-save immediately so it persists after refresh
+                        await updateSiteContent(updatedText);
+                        toast.success('Logo uploaded and saved!');
                       } catch { toast.error('Logo upload failed'); }
                     }}
                     className="w-full text-sm text-cream/70 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gold/10 file:text-gold hover:file:bg-gold/20"
