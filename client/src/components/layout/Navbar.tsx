@@ -57,7 +57,7 @@ export default function Navbar() {
               <img
                 src={content.site_logo}
                 alt="Café Belmirah"
-                className="h-14 w-auto object-contain"
+                className={`${content.site_logo_size || 'h-14'} w-auto object-contain`}
               />
             ) : (
               <>

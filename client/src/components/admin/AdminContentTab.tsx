@@ -307,6 +307,26 @@ export default function AdminContentTab() {
                   />
                 </div>
 
+                {/* Logo Size Control */}
+                {globalText.site_logo && (
+                  <div className="space-y-1">
+                    <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Logo Size</label>
+                    <select
+                      value={globalText.site_logo_size || 'h-14'}
+                      onChange={e => setGlobalText({ ...globalText, site_logo_size: e.target.value })}
+                      className="luxury-input w-full"
+                    >
+                      <option value="h-8">Small (32px)</option>
+                      <option value="h-10">Medium (40px)</option>
+                      <option value="h-14">Large (56px)</option>
+                      <option value="h-16">Extra Large (64px)</option>
+                      <option value="h-20">Huge (80px)</option>
+                      <option value="h-24">Maximum (96px)</option>
+                    </select>
+                    <p className="text-[10px] text-cream/50">Choose how tall the logo appears in the Navbar.</p>
+                  </div>
+                )}
+
                 <div className="space-y-1">
                   <label className="text-xs text-cream/70 font-semibold uppercase tracking-wider">Hero Headline</label>
                   <textarea value={globalText.hero_headline || ''} onChange={e => setGlobalText({ ...globalText, hero_headline: e.target.value })} className="luxury-input w-full min-h-[80px]" />
