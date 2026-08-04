@@ -68,7 +68,6 @@ function ExperienceCard({ exp, index }: { exp: any; index: number }) {
             </div>
           </>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-transparent" />
 
         {/* Icon */}
         <div className="absolute top-4 left-4">
@@ -195,7 +194,6 @@ export default function Experiences() {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/20 to-transparent" />
 
                 {/* Content overlay */}
                 <div className="absolute bottom-0 left-0 right-0 p-6">
