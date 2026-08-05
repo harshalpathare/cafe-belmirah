@@ -42,7 +42,7 @@ function ExperienceCard({ exp, index }: { exp: any; index: number }) {
             key={currentImageIndex}
             src={images[currentImageIndex]}
             alt={exp.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            className="w-full h-full object-contain bg-black/20 transition-transform duration-700 group-hover:scale-110"
             loading="lazy"
           />
         )}
@@ -191,7 +191,7 @@ export default function Experiences() {
                 <img
                   src={exp.image}
                   alt={exp.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-contain bg-black/20 transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
                 />
 
