@@ -216,7 +216,7 @@ export default function Contact() {
               { label: 'Check-In', hours: content.hours_checkin_time || '12:00 PM – 9:00 PM', days: content.hours_checkin_days || 'All Days' },
               { label: 'Check-Out', hours: content.hours_checkout_time || 'By 11:00 AM', days: content.hours_checkout_days || 'All Days' },
             ].map(item => (
-              <div key={item.label} className="border-r border-black/10 last:border-0 px-4">
+              <div key={item.label} className="border-b md:border-b-0 md:border-r border-black/10 last:border-0 pb-4 md:pb-0 px-4">
                 <div className="font-body text-xs text-gold tracking-wider uppercase mb-2">{item.label}</div>
                 <div className="font-display text-xl text-cream">{item.hours}</div>
                 <div className="font-body text-xs text-cream/40 mt-1">{item.days}</div>

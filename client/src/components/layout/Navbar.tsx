@@ -101,21 +101,21 @@ export default function Navbar() {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="lg:hidden flex flex-col gap-1.5 p-2"
+            className="lg:hidden flex flex-col gap-1.5 p-2 relative z-50"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
             <motion.span
-              animate={menuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-              className="block w-6 h-px bg-cream transition-all"
+              animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+              className={`block w-6 h-px transition-all ${menuOpen ? 'bg-cream' : (scrolled ? 'bg-cream' : 'bg-white')}`}
             />
             <motion.span
               animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-              className="block w-6 h-px bg-cream"
+              className={`block w-6 h-px transition-all ${menuOpen ? 'bg-cream' : (scrolled ? 'bg-cream' : 'bg-white')}`}
             />
             <motion.span
-              animate={menuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-              className="block w-6 h-px bg-cream"
+              animate={menuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
+              className={`block w-6 h-px transition-all ${menuOpen ? 'bg-cream' : (scrolled ? 'bg-cream' : 'bg-white')}`}
             />
           </button>
         </div>
