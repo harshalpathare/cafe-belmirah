@@ -47,11 +47,11 @@ export default function Navbar() {
             : 'bg-transparent py-6'
         }`}
       >
-        <div className="w-full px-4 md:px-8 flex items-center justify-between">
+        <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12 flex items-center justify-between relative">
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="flex flex-col items-start group"
+            className="flex flex-col items-start group relative z-10"
           >
             {content.site_logo ? (
               <img
@@ -72,8 +72,9 @@ export default function Navbar() {
               </>
             )}
           </button>
+          
           {/* Desktop Navigation */}
-          <nav className={`hidden lg:flex items-center gap-8 ${scrolled ? 'text-cream/70' : 'text-white/80'}`}>
+          <nav className={`hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2 ${scrolled ? 'text-cream/70' : 'text-white/80'}`}>
             {navLinks.map(link => (
               <button
                 key={link.href}
@@ -86,7 +87,7 @@ export default function Navbar() {
           </nav>
 
           {/* CTA Button */}
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-6 relative z-10">
             <Link to="/track" className={`font-body text-xs hover:text-gold uppercase tracking-wider transition-colors ${scrolled ? 'text-cream/70' : 'text-white/80'}`}>
               Find Booking
             </Link>
