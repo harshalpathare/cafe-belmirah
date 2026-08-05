@@ -51,7 +51,7 @@ function MenuCard({ item, index }: { item: any; index: number }) {
         <img
           src={item.image}
           alt={item.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className="w-full h-full object-contain bg-white/40 transition-transform duration-700 group-hover:scale-110"
           loading="lazy"
         />
       </div>
