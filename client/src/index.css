@@ -561,7 +561,7 @@ body {
    ===================================================== */
 .container-luxury {
   width: 100%;
-  max-width: 1400px;
+  max-width: 2560px; /* Increased massively to fill ultrawide monitors */
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -575,5 +575,11 @@ body {
 @media (min-width: 1280px) {
   .container-luxury {
     padding: 0 5rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  .container-luxury {
+    padding: 0 8rem;
   }
 }
