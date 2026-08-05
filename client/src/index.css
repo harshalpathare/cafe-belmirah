@@ -498,6 +498,20 @@ body {
   }
 }
 
+@media (min-width: 1536px) {
+  .masonry-grid {
+    columns: 5;
+    column-gap: 2rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  .masonry-grid {
+    columns: 6;
+    column-gap: 2rem;
+  }
+}
+
 .masonry-item {
   break-inside: avoid;
   margin-bottom: 1rem;
