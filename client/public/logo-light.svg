@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 70" width="200" height="70">
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C9A84C" />
+      <stop offset="50%" stop-color="#E8C97A" />
+      <stop offset="100%" stop-color="#A07830" />
+    </linearGradient>
+    <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#C9A84C" stop-opacity="0" />
+    </linearGradient>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&amp;display=swap');
+      .cafe { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; fill: #ffffff; letter-spacing: 0.15em; }
+      .belmirah { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 300; fill: url(#goldGradient); letter-spacing: 0.3em; }
+    </style>
+  </defs>
+  <text x="0" y="28" class="cafe">CAFÉ</text>
+  <text x="0" y="52" class="belmirah">BELMIRAH</text>
+  <rect x="0" y="60" width="180" height="1.5" fill="url(#lineGradient)" />
+</svg>
