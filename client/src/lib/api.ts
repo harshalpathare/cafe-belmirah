@@ -5,7 +5,7 @@ let rawApiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 if (rawApiUrl && !rawApiUrl.startsWith('http')) {
   rawApiUrl = 'https://' + rawApiUrl;
 }
-const API_URL = rawApiUrl;
+export const API_URL = rawApiUrl;
 
 const api = axios.create({
   baseURL: API_URL,

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import type { BookingForm, ReservationForm } from '../../types';
-import { submitBooking, submitReservation, fetchRooms, checkAvailability, api } from '../../lib/api';
+import { submitBooking, submitReservation, fetchRooms, checkAvailability, api, API_URL } from '../../lib/api';
 import toast from 'react-hot-toast';
 
 // Utility to load Razorpay script dynamically
@@ -44,7 +44,7 @@ function SuccessMessage({ type, referenceId }: { type: 'booking' | 'reservation'
       </div>
       <div>
         <a 
-          href={`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/invoice/${referenceId}`} 
+          href={`${API_URL}/invoice/${referenceId}`} 
           target="_blank" 
           rel="noreferrer"
           className="btn-gold inline-flex items-center gap-2"

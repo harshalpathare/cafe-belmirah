@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { trackBooking, cancelBookingCustomer } from '../lib/api';
+import { trackBooking, cancelBookingCustomer, API_URL } from '../lib/api';
 
 export default function TrackBooking() {
   const [result, setResult] = useState<{ bookings: any[], reservations: any[] } | null>(null);
@@ -105,7 +105,7 @@ export default function TrackBooking() {
 
                       <div className="flex gap-4 pt-4 border-t border-white/5">
                         <a 
-                          href={`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/invoice/${booking.referenceId}`} 
+                          href={`${API_URL}/invoice/${booking.referenceId}`} 
                           target="_blank" 
                           rel="noreferrer"
                           className="flex-1 text-center py-2 bg-gold/10 hover:bg-gold/20 text-gold text-sm rounded transition-colors"
