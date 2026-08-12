@@ -44,7 +44,7 @@ function SuccessMessage({ type, referenceId }: { type: 'booking' | 'reservation'
       </div>
       <div>
         <a 
-          href={`${API_URL}/invoice/${referenceId}`} 
+          href={`${API_URL}/invoice/${referenceId}/download.pdf`} 
           target="_blank" 
           rel="noreferrer"
           className="btn-gold inline-flex items-center gap-2"

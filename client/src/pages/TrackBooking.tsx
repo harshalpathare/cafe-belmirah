@@ -105,7 +105,7 @@ export default function TrackBooking() {
 
                       <div className="flex gap-4 pt-4 border-t border-white/5">
                         <a 
-                          href={`${API_URL}/invoice/${booking.referenceId}`} 
+                          href={`${API_URL}/invoice/${booking.referenceId}/download.pdf`} 
                           target="_blank" 
                           rel="noreferrer"
                           className="flex-1 text-center py-2 bg-gold/10 hover:bg-gold/20 text-gold text-sm rounded transition-colors"
@@ -143,11 +143,22 @@ export default function TrackBooking() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-y-4 gap-x-2 text-sm">
+                      <div className="grid grid-cols-2 gap-y-4 gap-x-2 text-sm mb-6">
                         <div><span className="block text-cream/40 text-xs uppercase mb-1">Date</span><span className="text-cream/90">{new Date(reservation.date).toLocaleDateString()}</span></div>
                         <div><span className="block text-cream/40 text-xs uppercase mb-1">Time</span><span className="text-cream/90">{reservation.time}</span></div>
                         <div><span className="block text-cream/40 text-xs uppercase mb-1">Guests</span><span className="text-cream/90">{reservation.guests}</span></div>
                         <div><span className="block text-cream/40 text-xs uppercase mb-1">Occasion</span><span className="text-cream/90">{reservation.occasion || 'None'}</span></div>
+                      </div>
+
+                      <div className="flex gap-4 pt-4 border-t border-white/5">
+                        <a 
+                          href={`${API_URL}/invoice/${reservation.referenceId}/download.pdf`} 
+                          target="_blank" 
+                          rel="noreferrer"
+                          className="flex-1 text-center py-2 bg-gold/10 hover:bg-gold/20 text-gold text-sm rounded transition-colors"
+                        >
+                          Download Invoice
+                        </a>
                       </div>
                     </div>
                   ))}

@@ -3,7 +3,11 @@ import type { BookingForm, ReservationForm } from '../types';
 
 let rawApiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 if (rawApiUrl && !rawApiUrl.startsWith('http')) {
-  rawApiUrl = 'https://' + rawApiUrl;
+  if (rawApiUrl.startsWith('/')) {
+    rawApiUrl = window.location.origin + rawApiUrl;
+  } else {
+    rawApiUrl = 'https://' + rawApiUrl;
+  }
 }
 export const API_URL = rawApiUrl;
 

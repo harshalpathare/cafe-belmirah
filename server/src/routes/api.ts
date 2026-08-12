@@ -65,7 +65,7 @@ router.delete('/bookings/:id', authenticateAdmin, bookingController.deleteBookin
 // Actually let's just make it secure if it's admin. But let's check original again to avoid breaking. Original didn't have it. I'll omit it. Wait, I'll add it, it's safer. Let's just match original.
 router.delete('/bookings/:id', bookingController.deleteBooking);
 router.get('/track', bookingController.trackBooking);
-router.get('/invoice/:referenceId', bookingController.getInvoice);
+router.get('/invoice/:referenceId/download.pdf', bookingController.getInvoice);
 
 // --- Payments ---
 router.post('/payment/create-order', paymentController.createOrder);
