@@ -13,6 +13,7 @@ import * as contentController from '../controllers/contentController';
 import * as uploadController from '../controllers/uploadController';
 import * as siteContentController from '../controllers/siteContentController';
 import * as inquiryController from '../controllers/inquiryController';
+import * as paymentController from '../controllers/paymentController';
 
 const router = Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'secret';
@@ -65,6 +66,10 @@ router.delete('/bookings/:id', authenticateAdmin, bookingController.deleteBookin
 router.delete('/bookings/:id', bookingController.deleteBooking);
 router.get('/track', bookingController.trackBooking);
 router.get('/invoice/:referenceId', bookingController.getInvoice);
+
+// --- Payments ---
+router.post('/payment/create-order', paymentController.createOrder);
+router.post('/payment/verify', paymentController.verifyPayment);
 
 // --- Reservations ---
 router.post('/reservations', reservationController.createReservation);

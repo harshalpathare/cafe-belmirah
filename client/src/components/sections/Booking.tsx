@@ -2,8 +2,19 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import type { BookingForm, ReservationForm } from '../../types';
-import { submitBooking, submitReservation, fetchRooms, checkAvailability } from '../../lib/api';
+import { submitBooking, submitReservation, fetchRooms, checkAvailability, api } from '../../lib/api';
 import toast from 'react-hot-toast';
+
+// Utility to load Razorpay script dynamically
+const loadRazorpay = () => {
+  return new Promise((resolve) => {
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+};
 
 
 const timeSlots = ['12:00 PM', '1:00 PM', '2:00 PM', '7:00 PM', '7:30 PM', '8:00 PM', '8:30 PM', '9:00 PM'];
@@ -107,14 +118,60 @@ function BookingTab() {
     if (!bookingData) return;
     
     try {
-      // Show processing for a second to simulate payment
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const isLoaded = await loadRazorpay();
+      if (!isLoaded) {
+        toast.error('Razorpay SDK failed to load. Are you online?');
+        return;
+      }
+
+      const total = calculateTotal();
+      const amountToPay = paymentMethod === 'full' ? total : total * 0.3;
       
-      const res = await submitBooking({ ...bookingData, guests });
-      setSubmittedId(res.data.referenceId);
-      toast.success('Booking requested successfully!');
+      const { data: { order } } = await api.post('/payment/create-order', {
+        amount: amountToPay,
+        receipt: `receipt_booking_${Date.now()}`
+      });
+
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'YOUR_RAZORPAY_KEY_ID',
+        amount: order.amount,
+        currency: order.currency,
+        name: 'Café Belmirah',
+        description: 'Stay Booking',
+        order_id: order.id,
+        handler: async function (response: any) {
+          try {
+            const verifyRes = await api.post('/payment/verify', {
+              ...response,
+              bookingData: { ...bookingData, guests },
+              type: 'booking'
+            });
+            if (verifyRes.data.success) {
+              setSubmittedId(verifyRes.data.referenceId);
+              toast.success('Booking requested successfully! Check your email.');
+            }
+          } catch (err: any) {
+            toast.error(err.response?.data?.message || 'Payment verification failed.');
+          }
+        },
+        prefill: {
+          name: bookingData.name,
+          email: bookingData.email,
+          contact: bookingData.phone,
+        },
+        theme: {
+          color: '#C9A84C'
+        }
+      };
+
+      const rzp1 = new (window as any).Razorpay(options);
+      rzp1.on('payment.failed', function (response: any) {
+        toast.error('Payment failed: ' + response.error.description);
+      });
+      rzp1.open();
+
     } catch (error: any) {
-      toast.error(error.response?.data?.error || 'Failed to send booking request. Please try again.');
+      toast.error(error.response?.data?.error || 'Failed to initiate payment.');
     }
   };
 
@@ -157,16 +214,8 @@ function BookingTab() {
 
         <form onSubmit={onPaymentSubmit} className="space-y-6">
           <div className="bg-black/20 p-6 rounded-lg border border-black/10">
-            <h4 className="text-gold font-body uppercase tracking-wider text-xs mb-4">Credit / Debit Card (Simulated)</h4>
-            <div className="space-y-4">
-              <div>
-                <input type="text" placeholder="Card Number (e.g. 4242 4242 4242 4242)" required className="luxury-input w-full" />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <input type="text" placeholder="MM/YY" required className="luxury-input w-full" />
-                <input type="text" placeholder="CVC" required className="luxury-input w-full" />
-              </div>
-            </div>
+            <h4 className="text-gold font-body uppercase tracking-wider text-xs mb-4">Secure Payment Info</h4>
+            <p className="text-sm text-cream/70 mb-4">You will be redirected to Razorpay's secure checkout window to complete your transaction via UPI, Cards, or NetBanking.</p>
           </div>
 
           <button type="submit" disabled={isSubmitting} className="btn-gold w-full py-4">
@@ -276,13 +325,59 @@ function ReservationTab() {
     if (!reservationData) return;
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const isLoaded = await loadRazorpay();
+      if (!isLoaded) {
+        toast.error('Razorpay SDK failed to load. Are you online?');
+        return;
+      }
+
+      const reservationFee = 500 * guests;
       
-      const res = await submitReservation({ ...reservationData, guests });
-      setSubmittedId(res.data.referenceId);
-      toast.success('Table reserved successfully!');
+      const { data: { order } } = await api.post('/payment/create-order', {
+        amount: reservationFee,
+        receipt: `receipt_res_${Date.now()}`
+      });
+
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'YOUR_RAZORPAY_KEY_ID',
+        amount: order.amount,
+        currency: order.currency,
+        name: 'Café Belmirah',
+        description: 'Table Reservation',
+        order_id: order.id,
+        handler: async function (response: any) {
+          try {
+            const verifyRes = await api.post('/payment/verify', {
+              ...response,
+              bookingData: { ...reservationData, guests },
+              type: 'reservation'
+            });
+            if (verifyRes.data.success) {
+              setSubmittedId(verifyRes.data.referenceId);
+              toast.success('Table reserved successfully! Check your email.');
+            }
+          } catch (err: any) {
+            toast.error(err.response?.data?.message || 'Payment verification failed.');
+          }
+        },
+        prefill: {
+          name: reservationData.name,
+          email: reservationData.email,
+          contact: reservationData.phone,
+        },
+        theme: {
+          color: '#C9A84C'
+        }
+      };
+
+      const rzp1 = new (window as any).Razorpay(options);
+      rzp1.on('payment.failed', function (response: any) {
+        toast.error('Payment failed: ' + response.error.description);
+      });
+      rzp1.open();
+
     } catch (error: any) {
-      toast.error(error.response?.data?.error || 'Failed to reserve table. Please try again.');
+      toast.error(error.response?.data?.error || 'Failed to initiate payment.');
     }
   };
 
@@ -308,16 +403,8 @@ function ReservationTab() {
 
         <form onSubmit={onPaymentSubmit} className="space-y-6">
           <div className="bg-black/20 p-6 rounded-lg border border-black/10">
-            <h4 className="text-gold font-body uppercase tracking-wider text-xs mb-4">Credit / Debit Card (Simulated)</h4>
-            <div className="space-y-4">
-              <div>
-                <input type="text" placeholder="Card Number (e.g. 4242 4242 4242 4242)" required className="luxury-input w-full" />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <input type="text" placeholder="MM/YY" required className="luxury-input w-full" />
-                <input type="text" placeholder="CVC" required className="luxury-input w-full" />
-              </div>
-            </div>
+            <h4 className="text-gold font-body uppercase tracking-wider text-xs mb-4">Secure Payment Info</h4>
+            <p className="text-sm text-cream/70 mb-4">You will be redirected to Razorpay's secure checkout window to complete your transaction via UPI, Cards, or NetBanking.</p>
           </div>
 
           <button type="submit" disabled={isSubmitting} className="btn-gold w-full py-4">

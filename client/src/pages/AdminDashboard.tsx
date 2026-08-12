@@ -6,13 +6,15 @@ import AdminRoomsTab from '../components/admin/AdminRoomsTab';
 import AdminContentTab from '../components/admin/AdminContentTab';
 import AdminSettingsTab from '../components/admin/AdminSettingsTab';
 import AdminInquiriesTab from '../components/admin/AdminInquiriesTab';
+import AdminCalendarTab from '../components/admin/AdminCalendarTab';
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'bookings' | 'inquiries' | 'menu' | 'rooms' | 'content' | 'settings'>('bookings');
+  const [activeTab, setActiveTab] = useState<'bookings' | 'calendar' | 'inquiries' | 'menu' | 'rooms' | 'content' | 'settings'>('bookings');
 
   const TABS = [
     { id: 'bookings', label: 'Bookings & Reservations' },
+    { id: 'calendar', label: 'Calendar' },
     { id: 'inquiries', label: 'Inquiries' },
     { id: 'menu', label: 'Menu Items' },
     { id: 'rooms', label: 'Glamping Rooms' },
@@ -60,6 +62,7 @@ export default function AdminDashboard() {
 
         {/* Tab Content */}
         {activeTab === 'bookings' && <AdminBookingsTab />}
+        {activeTab === 'calendar' && <AdminCalendarTab />}
         {activeTab === 'inquiries' && <AdminInquiriesTab />}
         {activeTab === 'menu' && <AdminMenuTab />}
         {activeTab === 'rooms' && <AdminRoomsTab />}
