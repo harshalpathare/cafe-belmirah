@@ -436,8 +436,8 @@ export default function Booking() {
           {/* Tabs */}
           <div className="flex gap-0 mb-8 border border-black/10">
             {[
-              { id: 'booking' as const, label: '🏕️ Book Your Stay', icon: '🏕️' },
-              { id: 'reservation' as const, label: '🍽️ Reserve a Table', icon: '🍽️' },
+              { id: 'booking' as const, label: 'Book Your Stay' },
+              { id: 'reservation' as const, label: 'Reserve a Table' },
             ].map(tab => (
               <button
                 key={tab.id}
