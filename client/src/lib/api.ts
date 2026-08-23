@@ -11,7 +11,7 @@ if (rawApiUrl && !rawApiUrl.startsWith('http')) {
 }
 export const API_URL = rawApiUrl;
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',

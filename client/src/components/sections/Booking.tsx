@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import type { BookingForm, ReservationForm } from '../../types';
-import { submitBooking, submitReservation, fetchRooms, checkAvailability, api, API_URL } from '../../lib/api';
+import { fetchRooms, checkAvailability, api, API_URL } from '../../lib/api';
 import toast from 'react-hot-toast';
 
 // Utility to load Razorpay script dynamically
